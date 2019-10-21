@@ -1,0 +1,302 @@
+* General
+Make backups in a centralized place to reduce clutter everywhere
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+#+END_SRC
+
+Remove all the clutter
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-message t)
+  (setq initial-scratch-message nil)
+
+
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+#+END_SRC
+
+But add the time in 24hr format
+#+BEGIN_SRC emacs-lisp
+  (display-time-mode 1)
+  (setq display-time-24hr-format 1)
+  (display-time-mode -1)
+#+END_SRC
+
+Toggle time in fullscreen
+#+BEGIN_SRC emacs-lisp
+  (defun joh/toggle-display-time ()
+    (if display-time-mode
+	(display-time-mode -1)
+      (display-time-mode 1)))
+
+  (advice-add 'toggle-frame-fullscreen :after 'joh/toggle-display-time)
+#+END_SRC
+
+Setup MELPA
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+  (setq package-enable-at-startup nil)
+  ;; Taken directly from the MELPA website itself
+  (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                      (not (gnutls-available-p))))
+         (proto (if no-ssl "http" "https")))
+    (when no-ssl
+      (warn "\
+  Your version of Emacs does not support SSL connections,
+  which is unsafe because it allows man-in-the-middle attacks.
+  There are two things you can do about this warning:
+  1. Install an Emacs version that does support SSL and be safe.
+  2. Remove this warning from your init file so you won't see it again."))
+    ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
+    (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+    ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+    (when (< emacs-major-version 24)
+      ;; For important compatibility libraries like cl-lib
+      (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
+  (package-initialize)
+#+END_SRC
+
+Setup usepackage
+#+BEGIN_SRC emacs-lisp
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package gnu-elpa-keyring-update
+    :ensure t)
+#+END_SRC
+
+
+Change all confirmation prompts to short ones
+#+BEGIN_SRC emacs-lisp
+  (fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+C-x k now kills the current buffer
+#+BEGIN_SRC emacs-lisp
+  (defun joh/kill-this-buffer ()
+    "Kills the current buffer without the problems given by kill-this-buffer"
+    (interactive)
+    (kill-buffer (current-buffer))
+    )
+
+  (global-set-key (kbd "C-x k") 'joh/kill-this-buffer)
+#+END_SRC
+
+A shortcut command to open directly the config file
+#+BEGIN_SRC emacs-lisp
+  (defun joh/load-config-file ()
+    "Load the config file"
+    (interactive)
+    (find-file "~/.emacs.d/config.org"))
+#+END_SRC
+
+C-x w now kills only the frame (formerly C-x 5 0)
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x w") 'delete-frame)
+#+END_SRC
+
+Run emacs maximized by default
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+#+END_SRC
+
+* Theme
+** TODO Find a suitable theme (for now : misterioso)
+#+BEGIN_SRC emacs-lisp
+  (load-theme 'misterioso)
+#+END_SRC
+
+** Rainbow delimiters
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+    :ensure t
+    :config (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+#+END_SRC
+
+* Ivy
+I'll try with Ivy for now, maybe switch to Helm later if needed
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy
+    :ensure t
+    :config
+    (ivy-mode 1))
+#+END_SRC
+
+Also counsel, to have keybinds displayed in M-x (among other things)
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel
+    :ensure t
+    :after ivy
+    :config (counsel-mode 1))
+#+END_SRC
+
+* Try, which key and other misc stuff
+Try
+#+BEGIN_SRC emacs-lisp
+  (use-package try
+    :ensure t)
+#+END_SRC
+
+Which key
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :ensure t
+    :config (which-key-mode))
+#+END_SRC
+
+* Org mode
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-window-setup 'current-window)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-structure-template-alist
+	(cons '("el" . "src emacs-lisp")
+	      org-structure-template-alist))
+#+END_SRC
+
+Org bullet
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook (lambda ()
+			       (org-bullets-mode 1))))
+#+END_SRC
+
+Org download (WIP)
+#+begin_src emacs-lisp
+  (use-package org-download
+    :ensure t
+    :config
+    (add-hook 'dired-mode-hook 'org-download-enable)
+    (define-key org-mode-map (kbd "C-c s") 'org-download-screenshot))
+#+end_src
+
+** Latex Macros
+#+begin_src emacs-lisp
+  (defun joh/insert-latex-inline ()
+    "A template to insert empty inline equations."
+    (interactive)
+    (insert "\\(\\)")
+    (backward-char 2))
+
+  (defun joh/insert-latex-displayed ()
+    "A template to insert empty displayed equations."
+    (interactive)  
+    (insert "\\begin{equation*}\n\n\\end{equation*}")
+    (forward-line -1))
+
+  (defun joh/insert-latex-equation ()
+    "A template to insert empty equation environments."
+    (interactive)  
+    (insert "\\begin{equation}\n\n\\end{equation}")
+    (forward-line -1))
+
+  (global-set-key (kbd "<f6>") 'joh/insert-latex-inline)
+  (global-set-key (kbd "<f7>") 'joh/insert-latex-displayed)
+  (global-set-key (kbd "C-<f7>") 'joh/insert-latex-equation)
+#+end_src
+* Magit
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :ensure t
+    :config (global-set-key (kbd "C-x g") 'magit-status))
+#+END_SRC
+
+* CC Mode
+#+BEGIN_SRC emacs-lisp
+  (setq c-default-style "bsd")
+  (setq c-basic-offset 4)
+  (setq indent-tabs-mode nil)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'c-mode-common-hook (lambda () (local-set-key (kbd "C-c o") 'ff-find-other-file)))
+#+END_SRC
+
+* Python
+Switch to Python 3 by default
+#+BEGIN_SRC emacs-lisp
+  (setq python-shell-interpreter "python3")
+#+END_SRC
+
+Configure jedi 
+#+BEGIN_SRC emacs-lisp
+  (use-package jedi 
+    :ensure t
+    :init
+    (add-hook 'python-mode-hook 'jedi:setup)
+    ;; TODO jedi AC setup ??
+    )
+#+END_SRC
+
+* Paredit
+Seems pretty cool
+I just changed the spacing behavior for python : 
+foo() instead of foo ()
+#+BEGIN_SRC emacs-lisp
+  (use-package paredit
+    :ensure t
+    :config 
+    (add-to-list 'paredit-space-for-delimiter-predicates
+                 (lambda (endp delimiter)
+                   (not (eq major-mode 'python-mode))))
+    (autoload 'enable-paredit-mode "paredit" "Turn on pseudo structural editing of Lisp code." t)
+    (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+    (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+    (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+    (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+    (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+    (add-hook 'scheme-mode-hook           #'enable-paredit-mode))
+#+END_SRC
+
+* Smartparens
+Even though I use paredit for lispy languages, I prefer having
+*smartparens* for the rest.
+
+#+begin_src emacs-lisp
+  (use-package smartparens
+    :ensure t
+    :config
+    (add-hook 'c-mode-common-hook #'smartparens-strict-mode))
+#+end_src
+
+* Iedit
+Could be handy sometimes
+#+BEGIN_SRC emacs-lisp
+
+#+END_SRC
+
+* Common Lisp
+Slime
+#+BEGIN_SRC emacs-lisp
+  (use-package slime
+    :ensure t
+    :config
+    (setq inferior-lisp-program "/usr/bin/sbcl")
+    (setq slime-contribs '(slime-fancy slime-quicklisp slime-asdf))
+    (add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1)))
+    ;; Stop SLIME's REPL from grabbing DEL,
+    ;; which is annoying when backspacing over a '('
+    (defun override-slime-repl-bindings-with-paredit ()
+      (define-key slime-repl-mode-map
+        (read-kbd-macro paredit-backward-delete-key) nil))
+    (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit))
+#+END_SRC
+
+* Elfeed
+#+BEGIN_SRC emacs-lisp
+    (use-package elfeed
+      :ensure t)
+
+    (use-package elfeed-org
+      :ensure t
+      :config
+      (elfeed-org)
+      (setq rmh-elfeed-org-files (list "~/.emacs.d/rssfeeds.org")))
+#+END_SRC
