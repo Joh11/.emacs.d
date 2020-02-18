@@ -263,7 +263,8 @@ Even though I use paredit for lispy languages, I prefer having
   (use-package smartparens
     :ensure t
     :config
-    (add-hook 'c-mode-common-hook #'smartparens-strict-mode))
+    (add-hook 'c-mode-common-hook #'smartparens-mode)
+    (add-hook 'python-mode-hook #'smartparens-mode))
 #+end_src
 
 * Iedit
