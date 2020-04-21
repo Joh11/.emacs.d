@@ -156,7 +156,8 @@ Which key
 
 #+BEGIN_SRC emacs-lisp
   (setq org-structure-template-alist
-	(cons '("el" . "src emacs-lisp")
+	(cons '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC")
+	 ;;'("el" . "src emacs-lisp") this is only working in new versions
 	      org-structure-template-alist))
 #+END_SRC
 
