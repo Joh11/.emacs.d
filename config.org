@@ -63,9 +63,10 @@ Setup usepackage
     (package-install 'use-package))
 #+END_SRC
 
+For now I do not need this
 #+BEGIN_SRC emacs-lisp
-  (use-package gnu-elpa-keyring-update
-    :ensure t)
+  ;; (use-package gnu-elpa-keyring-update
+  ;;   :ensure t)
 #+END_SRC
 
 
@@ -256,7 +257,7 @@ foo() instead of foo ()
 #+END_SRC
 
 * Smartparens
-Even though I use paredit for lispy languages, I prefer having
+Even though I use *paredit* for lispy languages, I prefer having
 *smartparens* for the rest.
 
 #+begin_src emacs-lisp
