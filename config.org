@@ -150,13 +150,17 @@ Which key
 
 * Org mode
 
+#+begin_src emacs-lisp
+  (customize-set-variable 'org-archive-location "~/Documents/org/archive.org::* From %s")
+#+end_src
+
 #+BEGIN_SRC emacs-lisp
   (setq org-src-window-setup 'current-window)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
   (setq org-structure-template-alist
-	(cons '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC")
+	(cons '("el" . "src emacs-lisp")
 	 ;;'("el" . "src emacs-lisp") this is only working in new versions
 	      org-structure-template-alist))
 #+END_SRC
@@ -303,3 +307,14 @@ Slime
       (elfeed-org)
       (setq rmh-elfeed-org-files (list "~/.emacs.d/rssfeeds.org")))
 #+END_SRC
+* Deft [WIP]
+#+begin_src emacs-lisp
+  (use-package deft
+    :ensure t
+    :bind ("<f8>" . deft)
+    :commands (deft)
+    :config (setq deft-directory "~/Documents"
+		  deft-extensions '("org")
+		  deft-recursive t))
+#+end_src
+
