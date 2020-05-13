@@ -298,14 +298,14 @@ Slime
 
 * Elfeed
 #+BEGIN_SRC emacs-lisp
-    (use-package elfeed
-      :ensure t)
+  (use-package elfeed
+    :ensure t)
 
-    (use-package elfeed-org
-      :ensure t
-      :config
-      (elfeed-org)
-      (setq rmh-elfeed-org-files (list "~/.emacs.d/rssfeeds.org")))
+  (use-package elfeed-org
+    :ensure t
+    :config
+    (elfeed-org)
+    (setq rmh-elfeed-org-files (list "~/Documents/org/rssfeeds.org")))
 #+END_SRC
 * Deft [WIP]
 #+begin_src emacs-lisp
@@ -318,3 +318,10 @@ Slime
 		  deft-recursive t))
 #+end_src
 
+* Eshell [WIP]
+Ensure the PATH is correct
+#+begin_src emacs-lisp
+  (use-package exec-path-from-shell
+    :ensure t
+    :config (exec-path-from-shell-initialize))
+#+end_src
