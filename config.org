@@ -218,6 +218,12 @@ Org download (WIP)
   (use-package htmlize
     :ensure t)
 #+end_src
+
+* Org-roam [WIP]
+#+begin_src emacs-lisp
+  (use-package org-roam
+    :ensure t)
+#+end_src
 * Magit
 #+BEGIN_SRC emacs-lisp
   (use-package magit

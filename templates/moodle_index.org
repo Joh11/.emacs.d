@@ -1,0 +1,3 @@
+#+OPTIONS: num:nil html-postamble:nil toc:1
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
+#+HTML_HEAD: <link rel="shortcut icon" href="https://moodle.epfl.ch/theme/image.php/epfl/theme/1581009086/favicon" />

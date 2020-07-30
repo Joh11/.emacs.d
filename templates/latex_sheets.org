@@ -1,0 +1,45 @@
+#+options: toc:t num:1
+#+date: \today
+
+# imports
+#+latex_header: \usepackage[margin=2cm]{geometry}
+#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage{amssymb}
+#+latex_header: \usepackage{braket}
+
+# new commands
+#+latex_header: \newcommand{\dd}{\mathrm{d}}
+#+latex_header: \newcommand{\diff}[2]{\frac{\dd #1}{\dd #2}}
+#+latex_header: \newcommand{\pdiff}[2]{\frac{\partial #1}{\partial #2}}
+#+latex_header: \newcommand{\fdiff}[2]{\frac{\delta #1}{\delta #2}}
+#+latex_header: \newcommand{\Lagr}{\mathcal{L}}
+#+latex_header: \newcommand{\xd}{\dot{x}}
+#+latex_header: \renewcommand{\equiv}{\Leftrightarrow}
+
+#+begin_export latex
+\usepackage{siunitx}
+\usepackage{graphicx}
+
+
+
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Split}{Split}
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\charac}{char}
+
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Image}{Im}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\newcommand{\bigO}{\mathcal{O}}
+
+\renewcommand{\vec}{\mathbf}
+#+end_export
