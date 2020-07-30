@@ -5,4 +5,4 @@
 # every setup
 
 # Setup the default ledger journal file
-export LEDGER_FILE=$HOME/Documents/org/ledger.dat
+export LEDGER_FILE=$HOME/Documents/accounting/ledger.dat
