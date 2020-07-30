@@ -10,7 +10,7 @@
  '(org-agenda-files (quote ("~/Documents/org/dump.org")))
  '(package-selected-packages
    (quote
-    (deft gnu-elpa-keyring-update org-download org-bullets elfeed elfeed-org slime counsel ivy jedi which-key try rainbow-delimiters use-package)))
+    (yasnippet-snippets yasnippet glsl-mode iedit htmlize php-mode deft gnu-elpa-keyring-update org-download org-bullets elfeed elfeed-org slime counsel ivy jedi which-key try rainbow-delimiters use-package)))
  '(python-shell-interpreter "python3" t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

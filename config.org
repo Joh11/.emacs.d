@@ -105,9 +105,14 @@ Run emacs maximized by default
 #+END_SRC
 
 * Theme
-** TODO Find a suitable theme (for now : misterioso)
+** Light theme for now
 #+BEGIN_SRC emacs-lisp
-  (load-theme 'misterioso)
+  (load-theme 'leuven)
+#+END_SRC
+
+** Dark theme (disabled)
+#+BEGIN_SRC emacs-lisp
+  ;; (load-theme 'misterioso)
 #+END_SRC
 
 ** Rainbow delimiters
@@ -207,6 +212,12 @@ Org download (WIP)
   (global-set-key (kbd "<f7>") 'joh/insert-latex-displayed)
   (global-set-key (kbd "C-<f7>") 'joh/insert-latex-equation)
 #+end_src
+
+** Website generation
+#+begin_src emacs-lisp
+  (use-package htmlize
+    :ensure t)
+#+end_src
 * Magit
 #+BEGIN_SRC emacs-lisp
   (use-package magit
@@ -224,6 +235,25 @@ Org download (WIP)
 #+BEGIN_SRC emacs-lisp
   (add-hook 'c-mode-common-hook (lambda () (local-set-key (kbd "C-c o") 'ff-find-other-file)))
 #+END_SRC
+
+Following [[https://www.youtube.com/watch?v=HTUE03LnaXA][this tutorial]] for this:
+#+begin_src emacs-lisp
+  ;; (use-package auto-complete
+  ;;   :ensure t
+  ;;   :config
+  ;;   (ac-config-default))
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :config
+    (yas-reload-all)
+    (add-hook 'c-mode-common-hook #'yas-minor-mode))
+
+  (use-package yasnippet-snippets
+    :ensure t)
+#+end_src
 
 * Python
 Switch to Python 3 by default
@@ -270,13 +300,15 @@ Even though I use *paredit* for lispy languages, I prefer having
     :ensure t
     :config
     (add-hook 'c-mode-common-hook #'smartparens-mode)
-    (add-hook 'python-mode-hook #'smartparens-mode))
+    (add-hook 'python-mode-hook #'smartparens-mode)
+    (add-hook 'js-mode-hook #'smartparens-mode))
 #+end_src
 
 * Iedit
 Could be handy sometimes
 #+BEGIN_SRC emacs-lisp
-
+  (use-package iedit
+    :ensure t)
 #+END_SRC
 
 * Common Lisp
@@ -324,4 +356,17 @@ Ensure the PATH is correct
   (use-package exec-path-from-shell
     :ensure t
     :config (exec-path-from-shell-initialize))
+#+end_src
+
+* PHP Mode
+#+begin_src emacs-lisp
+  (use-package php-mode
+    :ensure t
+    :config (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode)))
+#+end_src
+
+* GLSL Mode
+#+begin_src emacs-lisp
+  (use-package glsl-mode
+    :ensure t)
 #+end_src
