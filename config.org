@@ -255,6 +255,8 @@ All of the things for the preview to work correctly
 #+begin_src emacs-lisp
   (use-package org-roam
     :ensure t
+    :bind (("<f8>" . org-roam-find-file)
+	   ("C-<f8>" . org-roam-insert))
     :config
     (setq org-roam-directory "~/org-roam")
     (add-hook 'after-init-hook 'org-roam-mode)
@@ -391,7 +393,6 @@ Slime
 #+begin_src emacs-lisp
   (use-package deft
     :ensure t
-    :bind ("<f8>" . deft)
     :commands (deft)
     :config (setq deft-directory "~/Documents"
 		  deft-extensions '("org")
