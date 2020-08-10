@@ -212,8 +212,13 @@ Org download (WIP)
 #+end_src
 
 ** Latex Macros
+All of the things for the preview to work correctly
 #+begin_src emacs-lisp
   (setq org-preview-latex-default-process 'imagemagick)
+  (setq org-latex-packages-alist '("\\usepackage{braket}"
+				   "\\newcommand{\\dd}{\\mathrm{d}}"
+				   "\\newcommand{\\diff}[2]{\\frac{\\dd #1}{\\dd #2}}"
+				   "\\newcommand{\\pdiff}[2]{\\frac{\\partial #1}{\\partial #2}}"))
 #+end_src
 
 #+begin_src emacs-lisp
