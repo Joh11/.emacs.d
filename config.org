@@ -188,6 +188,11 @@ Which key
 	      org-structure-template-alist))
 #+END_SRC
 
+TODO workflow: TODO -> WAIT -> DONE
+#+begin_src emacs-lisp
+  (customize-set-variable 'org-todo-keywords '((sequence "TODO" "WAIT" "|" "DONE")))
+#+end_src
+
 Org bullet
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
