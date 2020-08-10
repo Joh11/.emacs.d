@@ -265,7 +265,12 @@ All of the things for the preview to work correctly
 	  '(("d" "default" plain #'org-roam-capture--get-point
 	     "%?"
 	     :file-name "${slug}"
-	     :head "#+title: ${title}\n#+startup: latexpreview\n\n#+roam_alias:\n#+roam_tags:\n#+date: %T\n\n"
+	     :head "#+title: ${title}\n#+startup: latexpreview\n\n#+date: %T\n- tags :: \n\n"
+	     :unnarrowed t)
+	    ("s" "structure-note" plain #'org-roam-capture--get-point
+	     "%?"
+	     :file-name "${slug}"
+	     :head "#+title: ${title}\n\n#+date: %T\n#+roam_tags: structure-note\n- tags :: \n\n"
 	     :unnarrowed t)))
     ;; Add org-roam-protocol
     (require 'org-roam-protocol)
@@ -273,8 +278,12 @@ All of the things for the preview to work correctly
 	  '(("r" "roam-ref" plain #'org-roam-capture--get-point
 	     "%?"
 	     :file-name "${slug}"
-	     :head "#+title: ${title}\n#+startup: latexpreview\n\n#+roam_alias:\n#+roam_key: ${ref}\n#+roam_tags: literature-note website \n#+date: %T\n\n"
-	     :unnarrowed t))))
+	     :head "#+title: ${title}\n#+startup: latexpreview\n\n#+roam_key: ${ref}\n#+roam_tags: literature-note website \n#+date: %T\n- tags :: \n\n"
+	     :unnarrowed t)))
+    (use-package org-roam-server
+      :ensure t
+      :config
+      (org-roam-server-mode)))
 #+end_src
 * Magit
 #+BEGIN_SRC emacs-lisp
