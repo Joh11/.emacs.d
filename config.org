@@ -266,6 +266,14 @@ All of the things for the preview to work correctly
 	     "%?"
 	     :file-name "${slug}"
 	     :head "#+title: ${title}\n#+startup: latexpreview\n\n#+roam_alias:\n#+roam_tags:\n#+date: %T\n\n"
+	     :unnarrowed t)))
+    ;; Add org-roam-protocol
+    (require 'org-roam-protocol)
+    (setq org-roam-capture-ref-templates
+	  '(("r" "roam-ref" plain #'org-roam-capture--get-point
+	     "%?"
+	     :file-name "${slug}"
+	     :head "#+title: ${title}\n#+startup: latexpreview\n\n#+roam_alias:\n#+roam_key: ${ref}\n#+roam_tags: literature-note website \n#+date: %T\n\n"
 	     :unnarrowed t))))
 #+end_src
 * Magit
