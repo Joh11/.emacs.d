@@ -104,6 +104,12 @@ Run emacs maximized by default
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+END_SRC
 
+** Dired
+Show file size in human readable format
+#+begin_src emacs-lisp
+  (customize-set-variable 'dired-listing-switches "-alh")
+#+end_src
+   
 * Theme
 ** Light theme (now using doom-themes !)
 #+BEGIN_SRC emacs-lisp
