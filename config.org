@@ -376,7 +376,8 @@ Even though I use *paredit* for lispy languages, I prefer having
     (add-hook 'python-mode-hook #'smartparens-mode)
     (add-hook 'inferior-python-mode-hook #'smartparens-mode)
     (add-hook 'js-mode-hook #'smartparens-mode)
-    (add-hook 'f90-mode-hook #'smartparens-mode))
+    (add-hook 'f90-mode-hook #'smartparens-mode)
+    (add-hook 'julia-mode-hook #'smartparens-mode))
 #+end_src
 
 * Iedit
