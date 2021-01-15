@@ -1,0 +1,41 @@
+#+options: toc:nil num:1
+#+date: \today
+
+# imports
+#+latex_header: \usepackage[margin=2cm]{geometry}
+#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage{amssymb}
+#+latex_header: \usepackage{braket}
+
+# new commands
+#+latex_header: \renewcommand{\dd}{\mathrm{d}}
+#+latex_header: \renewcommand{\diff}[2]{\frac{\dd #1}{\dd #2}}
+#+latex_header: \renewcommand{\pdiff}[2]{\frac{\partial #1}{\partial #2}}
+#+latex_header: \newcommand{\fdiff}[2]{\frac{\delta #1}{\delta #2}}
+#+latex_header: \newcommand{\Lagr}{\mathcal{L}}
+#+latex_header: \newcommand{\xd}{\dot{x}}
+#+latex_header: \renewcommand{\equiv}{\Leftrightarrow}
+
+# #+latex_header: \usepackage{siunitx}
+#+latex_header: \usepackage{graphicx}
+
+#+latex_header: \DeclareMathOperator{\Hom}{Hom}
+#+latex_header: \DeclareMathOperator{\Gal}{Gal}
+#+latex_header: \DeclareMathOperator{\Split}{Split}
+
+#+latex_header: \DeclareMathOperator{\Tr}{Tr}
+#+latex_header: \DeclareMathOperator{\charac}{char}
+
+#+latex_header: \DeclareMathOperator{\Ker}{Ker}
+#+latex_header: \DeclareMathOperator{\Image}{Im}
+
+#+latex_header: \newcommand{\R}{\mathbb{R}}
+#+latex_header: \newcommand{\Q}{\mathbb{Q}}
+#+latex_header: \newcommand{\C}{\mathbb{C}}
+#+latex_header: \newcommand{\F}{\mathbb{F}}
+#+latex_header: \newcommand{\Z}{\mathbb{Z}}
+
+#+latex_header: \newcommand{\bigO}{\mathcal{O}}
+
+#+latex_header: \renewcommand{\vec}{\mathbf}
+
