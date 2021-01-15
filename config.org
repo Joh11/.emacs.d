@@ -407,7 +407,9 @@ Slime
 * Elfeed
 #+BEGIN_SRC emacs-lisp
   (use-package elfeed
-    :ensure t)
+    :ensure t
+    :config
+    (custom-set-variables '(elfeed-search-title-max-width 130)))
 
   (use-package elfeed-org
     :ensure t
@@ -450,6 +452,6 @@ Ensure the PATH is correct
   (use-package haskell-mode
     :ensure t
     :config
-    (add-hook ’haskell-mode-hook ’interactive-haskell-mode)
-    (add-hook ’haskell-mode-hook ’smartparens-mode))
+    (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+    (add-hook 'haskell-mode-hook 'smartparens-mode))
 #+end_src
