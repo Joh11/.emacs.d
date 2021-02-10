@@ -217,6 +217,11 @@ Org download (WIP)
     (define-key org-mode-map (kbd "C-c s") 'org-download-screenshot))
 #+end_src
 
+Remove temporary latex file for PDF production
+#+begin_src emacs-lisp
+  (advice-add 'org-latex-compile :after #'delete-file)
+#+end_src
+
 ** Latex Macros
 All of the things for the preview to work correctly
 #+begin_src emacs-lisp
@@ -246,7 +251,7 @@ All of the things for the preview to work correctly
     (insert "\\begin{equation}\n\n\\end{equation}")
     (forward-line -1))
 
-  (global-set-key (kbd "<f6>") 'joh/insert-latex-inline)
+  (global-set-key (kbd "C-$") 'joh/insert-latex-inline)
   (global-set-key (kbd "<f7>") 'joh/insert-latex-displayed)
   (global-set-key (kbd "C-<f7>") 'joh/insert-latex-equation)
 #+end_src
@@ -290,6 +295,15 @@ All of the things for the preview to work correctly
       :ensure t
       :config
       (org-roam-server-mode)))
+#+end_src
+* Anki-editor
+#+begin_src emacs-lisp
+  ;; For now the MELPA package has bugs
+  ;; (use-package anki-editor
+  ;;   :ensure t)
+
+  (add-to-list 'load-path "~/.emacs.d/src/anki-editor/")
+  (load "anki-editor")
 #+end_src
 * Magit
 #+BEGIN_SRC emacs-lisp
@@ -454,4 +468,9 @@ Ensure the PATH is correct
     :config
     (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
     (add-hook 'haskell-mode-hook 'smartparens-mode))
+#+end_src
+* Julia mode
+#+begin_src emacs-lisp
+  (use-package julia-mode
+    :ensure t)
 #+end_src
