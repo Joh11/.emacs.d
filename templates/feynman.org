@@ -6,6 +6,10 @@
 #+latex_header: \usepackage{amsmath}
 #+latex_header: \usepackage{amssymb}
 #+latex_header: \usepackage{braket}
+#+latex_header: \usepackage{tikz}
+
+# typeface
+# #+latex_header: \usepackage{courier}
 
 # new commands
 #+latex_header: \renewcommand{\dd}{\mathrm{d}}
@@ -17,7 +21,6 @@
 #+latex_header: \renewcommand{\equiv}{\Leftrightarrow}
 
 # #+latex_header: \usepackage{siunitx}
-#+latex_header: \usepackage{graphicx}
 
 #+latex_header: \DeclareMathOperator{\Hom}{Hom}
 #+latex_header: \DeclareMathOperator{\Gal}{Gal}
@@ -39,3 +42,4 @@
 
 #+latex_header: \renewcommand{\vec}{\mathbf}
 
+#+latex_header: \newcommand{\hv}[1]{\hat{\vec{#1}}}
