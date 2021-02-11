@@ -299,11 +299,16 @@ All of the things for the preview to work correctly
 * Anki-editor
 #+begin_src emacs-lisp
   ;; For now the MELPA package has bugs
-  ;; (use-package anki-editor
-  ;;   :ensure t)
-
-  (add-to-list 'load-path "~/.emacs.d/src/anki-editor/")
-  (load "anki-editor")
+  (use-package anki-editor
+    :load-path "~/.emacs.d/src/anki-editor/"
+    :ensure t
+    :init
+    (defvar anki-editor-mode-map (make-sparse-keymap))
+    (add-to-list 'minor-mode-map-alist (cons 'anki-editor-mode
+					     anki-editor-mode-map))
+    :bind (:map anki-editor-mode-map
+		("C-c i" . anki-editor-insert-note)
+		("C-c p" . anki-editor-push-notes)))
 #+end_src
 * Magit
 #+BEGIN_SRC emacs-lisp
