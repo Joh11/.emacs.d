@@ -365,22 +365,20 @@ Configure jedi
 
 * Paredit
 Seems pretty cool
-I just changed the spacing behavior for python : 
-foo() instead of foo ()
 #+BEGIN_SRC emacs-lisp
   (use-package paredit
     :ensure t
     :config 
-    (add-to-list 'paredit-space-for-delimiter-predicates
-                 (lambda (endp delimiter)
-                   (not (eq major-mode 'python-mode))))
     (autoload 'enable-paredit-mode "paredit" "Turn on pseudo structural editing of Lisp code." t)
     (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
     (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
     (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
     (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
     (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-    (add-hook 'scheme-mode-hook           #'enable-paredit-mode))
+    (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+    :bind (:map paredit-mode-map
+		("C-<right>" . paredit-forward)
+		("C-<left>" . paredit-backward)))
 #+END_SRC
 
 * Smartparens
