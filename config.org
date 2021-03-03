@@ -214,7 +214,10 @@ Org download (WIP)
     :ensure t
     :config
     (add-hook 'dired-mode-hook 'org-download-enable)
-    (define-key org-mode-map (kbd "C-c s") 'org-download-screenshot))
+    (define-key org-mode-map (kbd "C-c s") 'org-download-screenshot)
+
+    (setq org-download-image-dir "./imgs")
+    (setq org-download-heading-lvl nil))
 #+end_src
 
 Remove temporary latex file for PDF production
