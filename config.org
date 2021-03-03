@@ -479,4 +479,9 @@ Ensure the PATH is correct
 #+begin_src emacs-lisp
   (use-package julia-mode
     :ensure t)
+
+  (use-package julia-repl
+    :ensure t
+    :config
+    (add-hook 'julia-mode-hook 'julia-repl-mode))
 #+end_src
