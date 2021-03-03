@@ -214,10 +214,14 @@ Org download (WIP)
     :ensure t
     :config
     (add-hook 'dired-mode-hook 'org-download-enable)
-    (define-key org-mode-map (kbd "C-c s") 'org-download-screenshot)
 
     (setq org-download-image-dir "./imgs")
-    (setq org-download-heading-lvl nil))
+    (setq org-download-heading-lvl nil)
+    ;; put here has it makes less sense without org-download
+    (setq org-startup-with-inline-images t)
+    :bind (:map org-mode-map
+		("C-c s" . org-download-screenshot)
+		("C-c c" . org-download-clipboard)))
 #+end_src
 
 Remove temporary latex file for PDF production
