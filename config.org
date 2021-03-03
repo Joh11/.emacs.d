@@ -371,17 +371,17 @@ Seems pretty cool
 #+BEGIN_SRC emacs-lisp
   (use-package paredit
     :ensure t
-    :config 
+    :config
     (autoload 'enable-paredit-mode "paredit" "Turn on pseudo structural editing of Lisp code." t)
+    (add-to-list 'paredit-space-for-delimiter-predicates
+		 (lambda (endp delimiter)
+		   (not (eq major-mode 'python-mode))))
     (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
     (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
     (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
     (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
     (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-    (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
-    :bind (:map paredit-mode-map
-		("C-<right>" . paredit-forward)
-		("C-<left>" . paredit-backward)))
+    (add-hook 'scheme-mode-hook           #'enable-paredit-mode))
 #+END_SRC
 
 * Smartparens
