@@ -1,0 +1,17 @@
+#+title: Emacs tips
+
+This is a collection of tips I have accumulated over my Emacs journey.
+
+* Python
+** Showing the documentation at point
+Execute the command =jedi:show-doc= (by default, bound to =C-c ?=).
+* Common Lisp
+** Enable concurrent hints
+When hacking a Lisp program as it runs (like a SDL window), the
+function hints in the bottom bar are not working. Run this function to
+fix it (courtesy of Baggers):
+#+begin_src emacs-lisp
+  (defun slime-enable-concurrent-hints ()
+    (interactive)
+    (setf slime-inhibit-pipelining nil))
+#+end_src
