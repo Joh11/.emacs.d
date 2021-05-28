@@ -274,6 +274,8 @@ All of the things for the preview to work correctly
 	   ("C-<f8>" . org-roam-insert))
     :config
     (setq org-roam-directory "~/org-roam")
+    ;; use ivy for completion
+    (setq org-roam-completion-system 'ivy)
     (add-hook 'after-init-hook 'org-roam-mode)
     ;; Configure the template system
     (setq org-roam-capture-templates
@@ -488,4 +490,18 @@ Ensure the PATH is correct
     :ensure t
     :config
     (add-hook 'julia-mode-hook 'julia-repl-mode))
+#+end_src
+
+* Assembly mode
+#+begin_src emacs-lisp
+  (defun asm-fix-indent ()
+    (setq tab-always-indent (default-value 'tab-always-indent)))
+
+  (add-hook 'asm-mode-hook #'asm-fix-indent)
+#+end_src
+
+* Ledger mode
+#+begin_src emacs-lisp
+  (use-package ledger-mode
+    :ensure t)
 #+end_src
