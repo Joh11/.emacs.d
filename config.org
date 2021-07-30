@@ -505,3 +505,25 @@ Ensure the PATH is correct
   (use-package ledger-mode
     :ensure t)
 #+end_src
+
+* Gemini setup
+** Editing
+#+begin_src emacs-lisp
+  (define-derived-mode gmi-mode text-mode "Gemini"
+    "major mode for editing Gemini files"
+    (setq truncate-lines nil)
+    (setq fill-paragraph-function (lambda (&rest rest) t)))
+
+  (add-to-list 'auto-mode-alist '("\\.gmi\\'" . gmi-mode))
+#+end_src
+** Browsing
+#+begin_src emacs-lisp
+  (use-package elpher
+    :ensure t)
+#+end_src
+
+* Markdown mode
+#+begin_src emacs-lisp
+  (use-package markdown-mode
+    :ensure t)
+#+end_src
