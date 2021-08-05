@@ -507,7 +507,9 @@ Ensure the PATH is correct
 * Ledger mode
 #+begin_src emacs-lisp
   (use-package ledger-mode
-    :ensure t)
+    :ensure t
+    :config
+    (add-hook 'ledger-mode-hook 'end-of-buffer))
 #+end_src
 
 * Gemini setup
