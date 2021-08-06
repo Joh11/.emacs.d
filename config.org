@@ -230,8 +230,14 @@ Remove temporary latex file for PDF production
   (advice-add 'org-latex-compile :after #'delete-file)
 #+end_src
 
-** Latex Macros
+** Latex preview
 All of the things for the preview to work correctly
+
+Make the preview cache directory hidden
+#+begin_src emacs-lisp
+  (setq org-preview-latex-image-directory ".ltximg/")
+#+end_src
+
 #+begin_src emacs-lisp
   (setq org-preview-latex-default-process 'imagemagick)
   (setq org-latex-packages-alist '("\\usepackage{braket}"
