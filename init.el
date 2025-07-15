@@ -16,12 +16,17 @@
  '(dired-listing-switches "-alh")
  '(elfeed-search-title-max-width 130)
  '(org-agenda-files
-   '("~/Dropbox/org/dump.org" "~/Dropbox/org/agenda.org" "~/Documents/org/agenda.org" "~/Documents/org/dump.org"))
+   '("/home/johan/Documents/phd/litterature.org" "/home/johan/Dropbox/org/dump.org" "/home/johan/Dropbox/org/agenda.org"))
  '(org-archive-location "~/Documents/org/archive.org::* From %s")
  '(org-todo-keywords '((sequence "TODO" "WAIT" "|" "DONE")))
  '(package-selected-packages
-   '(llvm-mode projectile julia-repl julia-mode anki-editor sudoku haskell-mode org-roam-server org-roam yasnippet-snippets yasnippet glsl-mode iedit htmlize php-mode deft gnu-elpa-keyring-update org-download org-bullets elfeed elfeed-org slime counsel ivy jedi which-key try rainbow-delimiters use-package))
- '(python-shell-interpreter "python3" t))
+   '(rust-mode llvm-mode projectile julia-repl julia-mode anki-editor sudoku haskell-mode org-roam-server org-roam yasnippet-snippets yasnippet glsl-mode iedit htmlize php-mode deft gnu-elpa-keyring-update org-download org-bullets elfeed elfeed-org slime counsel ivy jedi which-key try rainbow-delimiters use-package))
+ '(python-shell-interpreter "python3" t)
+ '(safe-local-variable-values
+   '((eval org-preview-latex-fragment
+	   (list 16))
+     (eval setq org-format-latex-options
+	   (plist-put org-format-latex-options :scale 1.5)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -93,6 +93,15 @@ A shortcut command to open directly the config file
     (find-file "~/.emacs.d/config.org"))
 #+END_SRC
 
+A shortcut to open my todo list file
+#+BEGIN_SRC emacs-lisp
+  (defun joh/load-todo-file ()
+    "Load the todo file"
+    (interactive)
+    (find-file "~/Dropbox/org/todo.org"))
+#+END_SRC
+
+
 C-x w now kills only the frame (formerly C-x 5 0)
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x w") 'delete-frame)
@@ -283,7 +292,7 @@ Make the preview cache directory hidden
     :bind (("<f8>" . org-roam-find-file)
 	   ("C-<f8>" . org-roam-insert))
     :config
-    (setq org-roam-directory "~/org-roam")
+    (setq org-roam-directory "~/Documents/phd/wiki")
     ;; use ivy for completion
     (setq org-roam-completion-system 'ivy)
     (add-hook 'after-init-hook 'org-roam-mode)
@@ -300,17 +309,20 @@ Make the preview cache directory hidden
 	     :head "#+title: ${title}\n\n#+date: %T\n#+roam_tags: structure-note\n- tags :: \n\n"
 	     :unnarrowed t)))
     ;; Add org-roam-protocol
-    (require 'org-roam-protocol)
-    (setq org-roam-capture-ref-templates
-	  '(("r" "roam-ref" plain #'org-roam-capture--get-point
-	     "%?"
-	     :file-name "${slug}"
-	     :head "#+title: ${title}\n#+startup: latexpreview\n\n#+roam_key: ${ref}\n#+roam_tags: literature-note website \n#+date: %T\n- tags :: \n\n"
-	     :unnarrowed t)))
-    (use-package org-roam-server
-      :ensure t
-      :config
-      (org-roam-server-mode)))
+    ;; (require 'org-roam-protocol)
+    
+    ;; (setq org-roam-capture-ref-templates
+    ;; 	'(("r" "roam-ref" plain #'org-roam-capture--get-point
+    ;; 	   "%?"
+    ;; 	   :file-name "${slug}"
+    ;; 	   :head "#+title: ${title}\n#+startup: latexpreview\n\n#+roam_key: ${ref}\n#+roam_tags: literature-note website \n#+date: %T\n- tags :: \n\n"
+    ;; 	   :unnarrowed t)))
+
+    ;; (use-package org-roam-server
+    ;;   :ensure t
+    ;;   :config
+    ;;   (org-roam-server-mode))
+    )
 #+end_src
 * Anki-editor
 #+begin_src emacs-lisp
@@ -451,7 +463,7 @@ Slime
     :ensure t
     :config
     (elfeed-org)
-    (setq rmh-elfeed-org-files (list "~/Documents/org/rssfeeds.org")))
+    (setq rmh-elfeed-org-files (list "~/Dropbox/org/rssfeeds.org")))
 #+END_SRC
 * Deft [WIP]
 #+begin_src emacs-lisp
@@ -515,9 +527,19 @@ Ensure the PATH is correct
   (use-package ledger-mode
     :ensure t
     :config
-    (add-hook 'ledger-mode-hook 'end-of-buffer))
+    (add-hook 'ledger-mode-hook 'end-of-buffer)
+    (setq ledger-binary-path "hledger")
+    ;; to remove the "unknown flag --date-format" error on startup
+    (setq ledger-mode-should-check-version nil)
+    )
 #+end_src
-
+* Hledger mode
+#+begin_src emacs-lisp
+  ;; (use-package hledger-mode
+  ;;   :ensure t
+  ;;   :config
+  ;;   (setq hledger-jfile "/home/johan/Documents/accounting/main-2024.journal"))
+#+end_src
 * Gemini setup
 ** Editing
 #+begin_src emacs-lisp
@@ -537,5 +559,38 @@ Ensure the PATH is correct
 * Markdown mode
 #+begin_src emacs-lisp
   (use-package markdown-mode
-    :ensure t)
+    :ensure t
+    :config
+    (add-hook 'rust-mode-hook (lambda ()
+				(setq indent-tabs-mode nil))))
+#+end_src
+
+* Rust mode
+#+begin_src emacs-lisp
+  (use-package rust-mode
+    :ensure t
+    :config
+    (add-hook 'rust-mode-hook 'smartparens-mode)
+    (add-hook 'rust-mode-hook (lambda ()
+				(setq indent-tabs-mode nil))))
+#+end_src
+
+* Lab notebook
+#+begin_src emacs-lisp
+  (defun joh/find-lab-note-today ()
+    "Open the lab note for today. If it does not exist, a simple
+  template will be added."
+    (interactive)
+    (let* ((file-name (format-time-string "%Y-%m-%d.org" (current-time)))
+	   (full-path (expand-file-name file-name
+					"/home/johan/Documents/phd/wiki/lab-notebooks")))
+      ;; prefill the file with a basic template
+      (unless (file-exists-p full-path)
+	(with-temp-file full-path
+	  (insert "#+title: "
+		  (format-time-string "<%Y-%m-%d %a>" (current-time))
+		  "\n\n* \n")))
+      (find-file full-path)
+      (end-of-buffer)
+      (backward-char)))
 #+end_src
