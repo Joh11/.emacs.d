@@ -392,7 +392,33 @@ Configure jedi
     :ensure t
     :init
     (add-hook 'python-mode-hook 'jedi:setup)
-    ;; TODO jedi AC setup ??
+    ;; note that jedi:setup also takes care of autocompletion. It is a
+    ;; bit misleading, but jedi:ac-setup does not mean jedi setup AND
+    ;; autocompletion, but means ONLY jedi autocompletion, not the other
+    ;; features (see
+    ;; https://tkf.github.io/emacs-jedi/latest/#configuration)
+
+    ;; I added these to make it work without python2, though I am not
+    ;; sure what I am doing
+
+    ;; Requires virtualenv, which I obtained with apt (python3-virtualenv)
+    (setq jedi:environment-root "jedi")
+
+    ;; :config
+    ;; (setq jedi:environment-virtualenv
+    ;; 	(append python-environment-virtualenv
+    ;; 		'("--python" "/usr/bin/python3")))
+
+    ;; the choice of :init / :config here is important
+
+    ;; jedi:environment-root needs to be :init, because otherwise I have
+    ;; some jedi error (it is not finding the right virtualenv)
+
+    ;; the other parameter is actually not necessary: the virtualenv
+    ;; command on my PC is the Python3 one, so it works. If it was
+    ;; necessary, it would have to be loaded in :config, since at :init
+    ;; time, python-environment-virtualenv is not set yet. I am not sure
+    ;; if it would work though...
     )
 #+END_SRC
 
