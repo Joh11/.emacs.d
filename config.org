@@ -194,6 +194,19 @@ Which key
 #+END_SRC
 
 * Org mode
+#+begin_src emacs-lisp
+  (use-package org
+    :bind
+    (:map org-mode-map
+  	("C-c b" . joh/org-mode-new-ticked-checkbox))
+    
+    :config
+    (defun joh/org-mode-new-ticked-checkbox ()
+      (interactive)
+      (let ((current-prefix-arg '(4)))
+        (call-interactively 'org-toggle-checkbox))
+      (org-toggle-checkbox)))
+#+end_src
 
 #+begin_src emacs-lisp
   (customize-set-variable 'org-archive-location "~/Documents/org/archive.org::* From %s")
