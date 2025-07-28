@@ -427,17 +427,32 @@ Seems pretty cool
 #+BEGIN_SRC emacs-lisp
   (use-package paredit
     :ensure t
+    :hook
+    (emacs-lisp-mode . enable-paredit-mode)
+    (eval-expression-minibuffer-setup-hook . enable-paredit-mode)
+    (ielm-mode . enable-paredit-mode)
+    (lisp-mode . enable-paredit-mode)
+    (lisp-interaction-mode . enable-paredit-mode)
+    (scheme-mode . enable-paredit-mode)
+
+    :bind
+    (:map paredit-mode-map
+  	("<return>" . joh/paredit-RET))
     :config
     (autoload 'enable-paredit-mode "paredit" "Turn on pseudo structural editing of Lisp code." t)
-    (add-to-list 'paredit-space-for-delimiter-predicates
-		 (lambda (endp delimiter)
-		   (not (eq major-mode 'python-mode))))
-    (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-    (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-    (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-    (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-    (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-    (add-hook 'scheme-mode-hook           #'enable-paredit-mode))
+    (defun joh/paredit-RET ()
+      "Wraps paredit-RET to make it work with the minibuffer evaluation"
+      (interactive)
+      (if (minibufferp)
+  	(read--expression-try-read)
+        (paredit-RET)))
+    ;; no longer needed because I don't use paredit for python, but I
+    ;; left it here just in case
+    
+    ;; (add-to-list 'paredit-space-for-delimiter-predicates
+    ;; 		 (lambda (endp delimiter)
+    ;; 		   (not (eq major-mode 'python-mode))))
+    )
 #+END_SRC
 
 * Smartparens
