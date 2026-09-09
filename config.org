@@ -193,6 +193,16 @@ Which key
     :config (which-key-mode))
 #+END_SRC
 
+* Multiple cursors
+#+begin_src emacs-lisp
+  (use-package multiple-cursors
+    :ensure t
+    :config
+    (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+    (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+    (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
+#+end_src
+
 * Org mode
 #+begin_src emacs-lisp
   (use-package org
@@ -426,7 +436,6 @@ Configure jedi
 
     ;; jedi:environment-root needs to be :init, because otherwise I have
     ;; some jedi error (it is not finding the right virtualenv)
-
     ;; the other parameter is actually not necessary: the virtualenv
     ;; command on my PC is the Python3 one, so it works. If it was
     ;; necessary, it would have to be loaded in :config, since at :init
@@ -434,6 +443,18 @@ Configure jedi
     ;; if it would work though...
     )
 #+END_SRC
+
+Configure emacs-python-black
+#+begin_src emacs-lisp
+  (use-package python-black
+    :ensure t
+    :config
+    (setq python-black-extra-args '("-x"))
+    :after python
+    ;; note that black will not be enabled by default: it looks for a
+    ;; [tool.black] section in a pyproject.toml file.
+    :hook (python-mode . python-black-on-save-mode-enable-dwim))
+#+end_src
 
 * Paredit
 Seems pretty cool
@@ -447,6 +468,7 @@ Seems pretty cool
     (lisp-mode . enable-paredit-mode)
     (lisp-interaction-mode . enable-paredit-mode)
     (scheme-mode . enable-paredit-mode)
+    (lisp-data-mode . enable-paredit-mode)
 
     :bind
     (:map paredit-mode-map
@@ -653,4 +675,11 @@ Ensure the PATH is correct
       (find-file full-path)
       (end-of-buffer)
       (backward-char)))
+#+end_src
+
+#+begin_src emacs-lisp
+  (defun joh/load-time-tracker-file ()
+    "Load the time tracker file"
+    (interactive)
+    (find-file "~/Dropbox/org/time-tracker.org"))
 #+end_src
