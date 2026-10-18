@@ -50,7 +50,16 @@
 		 yasnippet-snippets))
  '(python-shell-interpreter "python3")
  '(safe-local-variable-values
-   '((rustic-rustfmt-args . "run nightly rustfmt")
+   '((jedi:complete-at-dot . t)
+     (eval let
+	   ((venv
+	     (expand-file-name ".venv"
+			       (locate-dominating-file
+				default-directory ".dir-locals.el"))))
+	   (setq-local python-shell-virtualenv-root venv)
+	   (setq-local python-black-command
+		       (expand-file-name "bin/black" venv)))
+     (rustic-rustfmt-args . "run nightly rustfmt")
      (rustic-rustfmt-bin . "rustup")
      (rustic-rustfmt-bin . "rustup run nightly rustfmt")
      (jedi:complete-at-dot t)
