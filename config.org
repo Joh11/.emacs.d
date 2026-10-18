@@ -426,26 +426,20 @@ Configure jedi
     ;; features (see
     ;; https://tkf.github.io/emacs-jedi/latest/#configuration)
 
-    ;; I added these to make it work without python2, though I am not
-    ;; sure what I am doing
-
     ;; Requires virtualenv, which I obtained with apt (python3-virtualenv)
     (setq jedi:environment-root "jedi")
 
-    ;; :config
-    ;; (setq jedi:environment-virtualenv
-    ;; 	(append python-environment-virtualenv
-    ;; 		'("--python" "/usr/bin/python3")))
+    ;; by default, uses site packages. Problematic, because then it does
+    ;; not have the latest version of parso, the python lib to parse
+    ;; python AST. To solve the "Python version not supported", just
+    ;; (jedi:reinstall-server), it will update it automatically.
+    (setq jedi:environment-virtualenv '("virtualenv" "--quiet"))
 
-    ;; the choice of :init / :config here is important
-
-    ;; jedi:environment-root needs to be :init, because otherwise I have
-    ;; some jedi error (it is not finding the right virtualenv)
-    ;; the other parameter is actually not necessary: the virtualenv
-    ;; command on my PC is the Python3 one, so it works. If it was
-    ;; necessary, it would have to be loaded in :config, since at :init
-    ;; time, python-environment-virtualenv is not set yet. I am not sure
-    ;; if it would work though...
+    ;; final note: do not set jedi:environment-root as a dir local
+    ;; variable. This is where the jedi server will run, we want it
+    ;; always in the same venv; it will detect the python version and
+    ;; works with code for a different version of python (provided the
+    ;; parso version is new enough)
     )
 #+END_SRC
 
