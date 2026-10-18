@@ -41,11 +41,11 @@
  '(org-archive-location "~/Documents/org/archive.org::* From %s")
  '(org-todo-keywords '((sequence "TODO" "WAIT" "|" "DONE")))
  '(package-selected-packages
-   '(anki-editor counsel deft elfeed-org elpher exec-path-from-shell
-		 glsl-mode haskell-mode htmlize iedit jedi julia-mode
-		 julia-repl ledger-mode lsp-mode magit
-		 multiple-cursors org-bullets org-download org-roam
-		 paredit php-mode projectile python-black
+   '(anki-editor counsel deft edit-indirect elfeed-org elpher
+		 exec-path-from-shell glsl-mode haskell-mode htmlize
+		 iedit jedi julia-mode julia-repl ledger-mode lsp-mode
+		 magit multiple-cursors org-bullets org-download
+		 org-roam paredit php-mode projectile python-black
 		 rainbow-delimiters rust-mode slime smartparens try
 		 yasnippet-snippets))
  '(python-shell-interpreter "python3")

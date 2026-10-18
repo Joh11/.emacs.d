@@ -123,6 +123,11 @@ Show file size in human readable format
 #+begin_src emacs-lisp
   (customize-set-variable 'dired-listing-switches "-alh")
 #+end_src
+
+Enable drag and drop from Dired
+#+begin_src emacs-lisp
+  (customize-set-variable 'dired-mouse-drag-files t)
+#+end_src
    
 * Theme
 For now I use the default theme. 
